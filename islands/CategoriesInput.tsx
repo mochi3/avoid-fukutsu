@@ -12,17 +12,19 @@ export default function CategoriesInput() {
       },
       body,
     });
+    window.location.reload(); // hack
   };
 
   return (
     <div>
       <div class="mt-5">
         <input
+          class="bg-transparent w-60 px-6 py-3 leading-loose h-full outline-none"
           type="text"
           placeholder="カテゴリ名を入力"
           value={categoryName}
           onChange={(event) =>
-            setCategoryName((event.target as HTMLInputElement).value)} //古い可能性あり
+            setCategoryName((event.target as HTMLInputElement).value)} // hack
         />
         <button onClick={sendCategories}>作成</button>
 

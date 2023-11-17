@@ -1,10 +1,10 @@
 import { useSignal } from "@preact/signals";
 import CategoriesInput from "../islands/CategoriesInput.tsx";
-import CategoriesList from "../islands/CategoriesList.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
 import { Header } from "../components/Header.tsx";
-import { Category } from "../shared/types.ts";
+import { Table } from "../components/Table.tsx";
+import { Category, Url } from "../shared/types.ts";
 import { getAllList } from "../shared/db.ts";
 import { KeyPrefix } from "../shared/types.ts";
 
@@ -17,11 +17,12 @@ export const handler: Handlers<Category[]> = {
 
 
 export default function CategoriesPage({ data }: PageProps<Category[]>) {
+  const tableHeader = ["ID", "category"];
   return (
     <>
       <Header />
       <div class="max-w-screen-md mx-auto">
-        <CategoriesList categories={data} />
+        <Table header={tableHeader} body={data} deleteUrl={Url.ApiCategories} />
         <CategoriesInput />
       </div>
     </>

@@ -12,6 +12,10 @@ export const createCategoryKey = (id: number) => [
   id
 ]
 
+export const enum Url {
+  ApiCategories = "/api/categories",
+}
+
 export interface Food {
   id: number,
   name: string,

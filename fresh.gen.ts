@@ -12,7 +12,7 @@ import * as $6 from "./routes/greet/[name].tsx";
 import * as $7 from "./routes/index.tsx";
 import * as $8 from "./routes/search.tsx";
 import * as $$0 from "./islands/CategoriesInput.tsx";
-import * as $$1 from "./islands/CategoriesList.tsx";
+import * as $$1 from "./islands/DeleteButton.tsx";
 
 const manifest = {
   routes: {
@@ -28,7 +28,7 @@ const manifest = {
   },
   islands: {
     "./islands/CategoriesInput.tsx": $$0,
-    "./islands/CategoriesList.tsx": $$1,
+    "./islands/DeleteButton.tsx": $$1,
   },
   baseUrl: import.meta.url,
 };
