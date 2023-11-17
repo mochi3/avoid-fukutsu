@@ -3,10 +3,14 @@ export interface Category {
   name: string,
 }
 
-export const enum CategoryKey {
-  Primary1 = "categories",
-  Primary2Property = "id",
+export const enum KeyPrefix {
+  Categories = "categories",
 }
+
+export const createCategoryKey = (id: number) => [
+  KeyPrefix.Categories,
+  id
+]
 
 export interface Food {
   id: number,

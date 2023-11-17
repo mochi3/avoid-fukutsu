@@ -14,11 +14,6 @@ export default function CategoriesInput() {
     });
   };
 
-  const getAllCategories = async () => {
-    const res = await fetch("/api/categories");
-    console.log(await res.json());
-  }
-
   return (
     <div>
       <div class="mt-5">
@@ -27,11 +22,10 @@ export default function CategoriesInput() {
           placeholder="カテゴリ名を入力"
           value={categoryName}
           onChange={(event) =>
-            setCategoryName((event.target as HTMLInputElement).value)}
+            setCategoryName((event.target as HTMLInputElement).value)} //古い可能性あり
         />
         <button onClick={sendCategories}>作成</button>
 
-        <button onClick={getAllCategories}>取得</button>
       </div>
     </div>
   );

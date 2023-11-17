@@ -42,7 +42,6 @@ export default function Home(data: PageProps<numData>) {
             </button>
           </form>
         </div>
-        <CategoriesInput />
       </div>
     </>
   );
