@@ -1,5 +1,4 @@
-import { useSignal } from "@preact/signals";
-import CategoriesInput from "../islands/CategoriesInput.tsx";
+import CategoryInput from "../islands/CategoryInput.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
 import { Header } from "../components/Header.tsx";
@@ -15,15 +14,14 @@ export const handler: Handlers<Category[]> = {
   },
 };
 
-
-export default function CategoriesPage({ data }: PageProps<Category[]>) {
-  const tableHeader = ["ID", "category"];
+export default function CategoriesPage({ data = [] }: PageProps<Category[]>) {
+  const tableKeys = ["id", "name"];
   return (
     <>
       <Header />
       <div class="max-w-screen-md mx-auto">
-        <Table header={tableHeader} body={data} deleteUrl={Url.ApiCategories} />
-        <CategoriesInput />
+        <Table keys={tableKeys} objs={data} deleteUrl={Url.ApiCategories} deleteId="id" />
+        <CategoryInput />
       </div>
     </>
   );

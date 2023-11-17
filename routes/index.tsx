@@ -1,12 +1,9 @@
-import { useSignal } from "@preact/signals";
-import CategoriesInput from "../islands/CategoriesInput.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
 import { Header } from "../components/Header.tsx";
 import { Card } from "../components/Card.tsx";
 import { Category, KeyPrefix } from "../shared/types.ts";
 import { getAllList } from "../shared/db.ts";
-
 
 export const handler: Handlers<Category[]> = {
   async GET(req, ctx) {
@@ -15,7 +12,7 @@ export const handler: Handlers<Category[]> = {
   },
 };
 
-export default function Home({data}: PageProps<Category[]>) {
+export default function Home({ data }: PageProps<Category[]>) {
   return (
     <>
       <Header />
@@ -51,7 +48,7 @@ export default function Home({data}: PageProps<Category[]>) {
         <section class="space-y-6">
           <h1 class="text-4xl font-bold text-grayellow-900">Categories</h1>
           <div class="grid grid-cols-3 gap-5 lg:!grid-cols-4 lg:!gap-5">
-            {data.map(category => <Card name={category.name} />)}
+            {data.map((category) => <Card name={category.name} />)}
           </div>
         </section>
       </div>

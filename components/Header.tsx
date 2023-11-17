@@ -9,6 +9,9 @@ export function Header() {
           <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href="/categories">
             categories
           </a>
+          <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href="/foods">
+            foods
+          </a>
         </div>
         <div>
           <button class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900">

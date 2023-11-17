@@ -6,13 +6,16 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/api/categories/[id].ts";
 import * as $3 from "./routes/api/categories/index.ts";
-import * as $4 from "./routes/api/joke.ts";
-import * as $5 from "./routes/categories.tsx";
-import * as $6 from "./routes/greet/[name].tsx";
-import * as $7 from "./routes/index.tsx";
-import * as $8 from "./routes/search.tsx";
-import * as $$0 from "./islands/CategoriesInput.tsx";
+import * as $4 from "./routes/api/foods/[id].ts";
+import * as $5 from "./routes/api/foods/index.ts";
+import * as $6 from "./routes/categories.tsx";
+import * as $7 from "./routes/foods.tsx";
+import * as $8 from "./routes/greet/[name].tsx";
+import * as $9 from "./routes/index.tsx";
+import * as $10 from "./routes/search.tsx";
+import * as $$0 from "./islands/CategoryInput.tsx";
 import * as $$1 from "./islands/DeleteButton.tsx";
+import * as $$2 from "./islands/FoodInput.tsx";
 
 const manifest = {
   routes: {
@@ -20,15 +23,18 @@ const manifest = {
     "./routes/_app.tsx": $1,
     "./routes/api/categories/[id].ts": $2,
     "./routes/api/categories/index.ts": $3,
-    "./routes/api/joke.ts": $4,
-    "./routes/categories.tsx": $5,
-    "./routes/greet/[name].tsx": $6,
-    "./routes/index.tsx": $7,
-    "./routes/search.tsx": $8,
+    "./routes/api/foods/[id].ts": $4,
+    "./routes/api/foods/index.ts": $5,
+    "./routes/categories.tsx": $6,
+    "./routes/foods.tsx": $7,
+    "./routes/greet/[name].tsx": $8,
+    "./routes/index.tsx": $9,
+    "./routes/search.tsx": $10,
   },
   islands: {
-    "./islands/CategoriesInput.tsx": $$0,
+    "./islands/CategoryInput.tsx": $$0,
     "./islands/DeleteButton.tsx": $$1,
+    "./islands/FoodInput.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };

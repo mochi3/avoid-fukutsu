@@ -1,11 +1,13 @@
 import { Handlers } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
 
-export default function CategoriesInput() {
-  const [categoryName, setCategoryName] = useState("");
-  const sendCategories = async () => {
-    const body = `{"categoryName": "${categoryName}"}`;
-    const res = await fetch("/api/categories", {
+import { Url } from "../shared/types.ts";
+
+export default function CategoryInput() {
+  const [name, setName] = useState("");
+  const submit = async () => {
+    const body = `{"name": "${name}"}`;
+    const res = await fetch(Url.ApiCategories, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,11 +24,11 @@ export default function CategoriesInput() {
           class="bg-transparent w-60 px-6 py-3 leading-loose h-full outline-none"
           type="text"
           placeholder="カテゴリ名を入力"
-          value={categoryName}
+          value={name}
           onChange={(event) =>
-            setCategoryName((event.target as HTMLInputElement).value)} // hack
+            setName((event.target as HTMLInputElement).value)} // hack
         />
-        <button onClick={sendCategories}>作成</button>
+        <button onClick={submit}>作成</button>
 
       </div>
     </div>
