@@ -1,7 +1,7 @@
-import { Sig } from "../shared/types.ts";
+import { tableList } from "../shared/types.ts";
 import DeleteButton from "../islands/DeleteButton.tsx";
 
-export function Table<T extends Sig>(
+export function Table<T extends tableList>(
   props: {
     keys: (keyof T)[];
     objs: T[];

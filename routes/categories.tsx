@@ -4,12 +4,12 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { Header } from "../components/Header.tsx";
 import { Table } from "../components/Table.tsx";
 import { Category, Url } from "../shared/types.ts";
-import { getAllList } from "../shared/db.ts";
+import { getList } from "../shared/db.ts";
 import { KeyPrefix } from "../shared/types.ts";
 
 export const handler: Handlers<Category[]> = {
   async GET(_req, ctx) {
-    const res = await getAllList<Category>(KeyPrefix.Categories);
+    const res = await getList<Category>([KeyPrefix.Categories]);
     return ctx.render(res);
   },
 };

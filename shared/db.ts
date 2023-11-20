@@ -1,14 +1,20 @@
+import { DbKey } from "./types.ts";
+
 const kv = await Deno.openKv();
 
-export async function get<T>(key: (string | number)[]) {
-  const res = await kv.get<T>(["categories", 1]);
-  if (!res.value) throw new Error(`${key} がありません。`) 
-  return res.value;
+export async function get<T>(key: DbKey) {
+  const res = await kv.get<T>(key);
+  if (!valueNotNull(res)) throw new Error(`${key} がありません。`)
+  return res;
 }
 
-export function getAllList<T>(prefix: string) {
+const valueNotNull = <T>(a: Deno.KvEntryMaybe<T>):a is (typeof a) & {value: T}  => {
+  return !!a.value;
+}
+
+export function getList<T>(searchKey: DbKey) {
   return KvIterToArray(
-    kv.list<T>({ prefix: [prefix] }),
+    kv.list<T>({ prefix: searchKey }),
   );
 }
 
@@ -25,7 +31,7 @@ async function KvIterToArray<T>(iter: Deno.KvListIterator<T>) {
   return list;
 }
 
-export async function createData<T>(value: T, key: (string | number)[]) {
+export async function createData<T>(value: T, key: DbKey) {
   const res = await kv.atomic()
     .check({ key, versionstamp: null })
     .set(key, value)
@@ -49,7 +55,7 @@ export async function createDataDouble<T>(
   return value;
 }
 
-export async function deleteData<T>(key: (string | number)[]) {
+export async function deleteData<T>(key: DbKey) {
   const getRes = await kv.get(key);
   if (!getRes.value) return "該当データがありません";
   const res = await kv.atomic().check(getRes).delete(key).commit();
@@ -57,9 +63,8 @@ export async function deleteData<T>(key: (string | number)[]) {
   return "データを削除しました。";
 }
 
-export async function deleteDataDouble<T>(key1: (string | number)[], key2: (string | number)[]) {
-  const getRes = await kv.get<T>(key1);
-  if (!getRes.value) return "該当データがありません";
+export async function deleteDataDouble<T>(key1: DbKey, key2: DbKey) {
+  const getRes = await get<T>(key1);
   const res = await kv.atomic()
     .check(getRes)
     .delete(key1)

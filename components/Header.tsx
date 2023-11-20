@@ -1,3 +1,5 @@
+import { Url } from "../shared/types.ts";
+
 export function Header() {
   return (
     <>
@@ -6,10 +8,10 @@ export function Header() {
           <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href="/">
             top
           </a>
-          <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href="/categories">
+          <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href={Url.Categories}>
             categories
           </a>
-          <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href="/foods">
+          <a class="px-4 py-2 border-solid rounded-md font-bold text-grayellow-900" href={Url.Foods}>
             foods
           </a>
         </div>

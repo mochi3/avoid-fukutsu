@@ -1,13 +1,26 @@
-export interface Category extends Sig {
+export interface Category extends tableList {
   id: number;
   name: string;
 }
 
-export interface Food extends Sig {
+export interface Food extends tableList {
   id: string;
   name: string;
   categoryId: number;
   categoryName: string;
+}
+
+export interface Review {
+  id: string;
+  food: Food;
+  condition: number;
+  expired: Expired;
+  message: string;
+}
+
+export interface Expired {
+  value: number,
+  type: number
 }
 
 export const enum KeyPrefix {
@@ -26,16 +39,23 @@ export const createFoodKey = (id: string) => [
   id,
 ];
 
-export const createFoodCategoryKey = (id: number) => [
+export const createFoodCategoryKey = (categoryId: number, foodId: string) => [
   KeyPrefix.FoodsByCategory,
-  id,
+  categoryId,
+  foodId,
 ];
 
 export const enum Url {
+  Category = "/category",
+  Food = "/food",
+  Categories = "/categories",
+  Foods = "/foods",
   ApiCategories = "/api/categories",
   ApiFoods = "/api/foods",
 }
 
-export interface Sig {
+export interface tableList {
   [key: string]: string | number;
 }
+
+export type DbKey = (string | number)[]

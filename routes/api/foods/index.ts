@@ -15,12 +15,12 @@ export const handler: Handlers = {
 async function createFood(name: string, categoryId: number) {
   let res: Food | string = "";
   try {
-    const category = await get<Category>(createCategoryKey(categoryId));
+    const {value: category} = await get<Category>(createCategoryKey(categoryId));
     const id = ulid();
     res = await createDataDouble<Food>(
       { id, name, categoryId: category.id, categoryName: category.name },
       createFoodKey(id),
-      createFoodCategoryKey(category.id),
+      createFoodCategoryKey(category.id, id),
     );
   } catch (e) {
     console.error(e);
