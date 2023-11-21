@@ -7,3 +7,6 @@
 
 # Fresh build directory
 _fresh/
+
+# enable tailwind intellisense
+tailwind.config.ts

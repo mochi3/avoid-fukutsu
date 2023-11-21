@@ -28,8 +28,8 @@ export default function FoodInput(props: { categories: Category[] }) {
           type="text"
           placeholder="食べ物名を入力"
           value={name}
-          onChange={(event) =>
-            setName((event.target as HTMLInputElement).value)} // hack
+          onChange={(e) =>
+            setName((e.target as HTMLInputElement).value)} // hack
         />
         <select class="outline-none" onChange={(event) =>
             setCategoryId((event.target as HTMLSelectElement).value)}>

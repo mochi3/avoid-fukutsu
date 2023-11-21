@@ -15,8 +15,9 @@ import * as $9 from "./routes/foods.tsx";
 import * as $10 from "./routes/index.tsx";
 import * as $11 from "./routes/search.tsx";
 import * as $$0 from "./islands/CategoryInput.tsx";
-import * as $$1 from "./islands/DeleteButton.tsx";
-import * as $$2 from "./islands/FoodInput.tsx";
+import * as $$1 from "./islands/CreateReview.tsx";
+import * as $$2 from "./islands/DeleteButton.tsx";
+import * as $$3 from "./islands/FoodInput.tsx";
 
 const manifest = {
   routes: {
@@ -35,8 +36,9 @@ const manifest = {
   },
   islands: {
     "./islands/CategoryInput.tsx": $$0,
-    "./islands/DeleteButton.tsx": $$1,
-    "./islands/FoodInput.tsx": $$2,
+    "./islands/CreateReview.tsx": $$1,
+    "./islands/DeleteButton.tsx": $$2,
+    "./islands/FoodInput.tsx": $$3,
   },
   baseUrl: import.meta.url,
 };

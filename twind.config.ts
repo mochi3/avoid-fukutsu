@@ -6,10 +6,11 @@ export default {
   selfURL: import.meta.url,
   theme: {
     colors: {
+      white: colors.white,
       gray: colors.trueGray,
       blue: colors.blue,
       grayellow: colors.warmGray,
-      orange: colors.orange
+      orange: colors.orange,
     },
   },
   plugins: {

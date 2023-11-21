@@ -25,11 +25,9 @@ export default function CategoryInput() {
           type="text"
           placeholder="カテゴリ名を入力"
           value={name}
-          onChange={(event) =>
-            setName((event.target as HTMLInputElement).value)} // hack
+          onChange={(e) => setName((e.target as HTMLInputElement).value)} // hack
         />
         <button onClick={submit}>作成</button>
-
       </div>
     </div>
   );
