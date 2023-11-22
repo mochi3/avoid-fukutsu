@@ -13,7 +13,7 @@ export interface Food extends TableList {
 export interface Review {
   id: string;
   food: Food;
-  condition: number;
+  conditionId: number;
   expired: Expired;
   message: string;
 }

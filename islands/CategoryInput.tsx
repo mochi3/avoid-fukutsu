@@ -2,17 +2,22 @@ import { Handlers } from "$fresh/server.ts";
 import { useState } from "preact/hooks";
 
 import { Url } from "../shared/types.ts";
+import { useInput } from "../shared/custom.ts";
+
+interface PostCategory {
+  name: string;
+}
 
 export default function CategoryInput() {
-  const [name, setName] = useState("");
+  const { set, ...categoryInput } = useInput("");
   const submit = async () => {
-    const body = `{"name": "${name}"}`;
+    const body: PostCategory = { name: categoryInput.value };
     const res = await fetch(Url.ApiCategories, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body,
+      body: JSON.stringify(body),
     });
     window.location.reload(); // hack
   };
@@ -24,8 +29,7 @@ export default function CategoryInput() {
           class="bg-transparent w-60 px-6 py-3 leading-loose h-full outline-none"
           type="text"
           placeholder="カテゴリ名を入力"
-          value={name}
-          onChange={(e) => setName((e.target as HTMLInputElement).value)} // hack
+          {...categoryInput}
         />
         <button onClick={submit}>作成</button>
       </div>

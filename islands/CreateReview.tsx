@@ -1,40 +1,60 @@
 import Carrot from "$icons/carrot.tsx";
 import Down from "$icons/chevron-down.tsx";
 import { useState } from "preact/hooks";
-import { createPortal } from "preact/compat";
+import { createPortal, TargetedEvent } from "preact/compat";
 
-import { conditionList, expiredTypeList, Food } from "../shared/types.ts";
-import FoodInput from "./FoodInput.tsx";
+import {
+  conditionList,
+  Expired,
+  expiredTypeList,
+  Food,
+} from "../shared/types.ts";
+import { useFocus, useInput } from "../shared/custom.ts";
 import { ConditionIcon } from "../components/ConditionIcon.tsx";
+
+interface PostReview {
+  foodId: string,
+  expired: Expired,
+  conditionId: number,
+  message: string,
+}
 
 export default function CreateReview(props: { foods: Food[] }) {
   const { foods } = props;
   const [showModal, setShowModal] = useState(false);
-  const [foodFocus, setFoodFocus] = useState(false);
-  const [foodInput, setFoodInput] = useState("");
-  const [foodSelect, setFoodSelect] = useState("");
-  const [conditionSelect, setConditionSelect] = useState("");
-  const [selectCondition, setSelectCondition] = useState(3);
-  const [showConditions, setShowConditions] = useState(false);
-  const sendDelete = async () => {
-    await fetch("", {
-      method: "DELETE",
-    });
-  };
+  const { value: foodFocusValue, ...foodFocus } = useFocus();
+  const { set: setFood, ...foodInput } = useInput("");
+  const [foodId, setFoodId] = useState("");
+  const [expired, setExpired] = useState({value: 0, type: 0} as Expired);
+  const [conditionId, setConditionId] = useState(0);
+  const [showConditionList, setShowConditionList] = useState(false);
+  const { set, ...message } = useInput("");
+
   const clickModal = (e: Event) => {
-    setShowConditions(false);
+    setShowConditionList(false);
     e.stopPropagation();
   };
   const selectFood = (food: Food) => {
-    setFoodInput(food.name);
-    setFoodSelect(food.id);
+    setFood(food.name);
+    setFoodId(food.id);
   };
   const clickCondition = (e: Event, id: number) => {
-    setSelectCondition(id);
-    setShowConditions(!showConditions);
+    setConditionId(id);
+    setShowConditionList(!showConditionList);
     e.stopPropagation();
   };
-  const submit = () => {
+  const submit = async () => {
+    console.log(message.value);
+    // await fetch("", {
+    //   method: "POST",
+    // });
+    const body: PostReview = {
+      foodId,
+      expired,
+      conditionId,
+      message: message.value
+    }
+    console.log(JSON.stringify(body));
   };
   return (
     <>
@@ -61,20 +81,18 @@ export default function CreateReview(props: { foods: Food[] }) {
                 <div class="flex flex-col">
                   <label for="food">Food</label>
                   <input
+                    {...foodInput}
+                    {...foodFocus}
                     class="bg-grayellow-200 h-5 outline-none p-3"
                     id="food"
                     placeholder="りんご"
-                    value={foodInput}
-                    onChange={(e) =>
-                      setFoodInput((e.target as HTMLInputElement).value)}
-                    onFocus={() => setFoodFocus(true)}
-                    onBlur={() => setFoodFocus(false)}
                   />
                   <div class="relative">
-                    {foodFocus && (
+                    {foodFocusValue && (
                       <ul class="absolute bg-white top-0 right-0 w-full rounded-b-sm border">
                         {foods.filter((food) =>
-                          foodInput !== "" && food.name.indexOf(foodInput) > -1
+                          foodInput.value !== "" &&
+                          food.name.indexOf(foodInput.value) > -1
                         )
                           .map((food) => (
                             <li
@@ -95,8 +113,22 @@ export default function CreateReview(props: { foods: Food[] }) {
                       class="outline-none w-[100px] text-right"
                       type="number"
                       placeholder="20"
+                      value={expired.value}
+                      onChange={(e) =>
+                        setExpired({
+                          ...expired,
+                          value: parseInt((e.target as HTMLInputElement).value),
+                        })}
                     />
-                    <select class="outline-none">
+                    <select
+                      class="outline-none"
+                      name="expiredType"
+                      onChange={(e) =>
+                        setExpired({
+                          ...expired,
+                          type: parseInt((e.target as HTMLSelectElement).value),
+                        })}
+                    >
                       {expiredTypeList.map((expiredType) => (
                         <option value={expiredType.id}>
                           {expiredType.name}
@@ -106,13 +138,13 @@ export default function CreateReview(props: { foods: Food[] }) {
                   </div>
                 </div>
                 <div class="">
-                  <label>State</label>
+                  <label>Condition</label>
                   <div class="relative h-[37px]">
                     <div class="absolute top-0 bg-white border rounded-md">
                       {conditionList.map((condition) => (
                         <div
                           class={`text-[${condition.color}] ${
-                            selectCondition === condition.id || showConditions
+                            conditionId === condition.id || showConditionList
                               ? "flex"
                               : "hidden"
                           } cursor-pointer items-center pl-2 h-[35px] w-[300px]`}
@@ -120,7 +152,7 @@ export default function CreateReview(props: { foods: Food[] }) {
                         >
                           <ConditionIcon condition={condition} />
                           {condition.message}
-                          {!showConditions && (
+                          {!showConditionList && (
                             <Down class="absolute right-0 text-grayellow-500 pr-2" />
                           )}
                         </div>
@@ -134,13 +166,14 @@ export default function CreateReview(props: { foods: Food[] }) {
                     id="message"
                     class="bg-grayellow-200 outline-none px-3"
                     placeholder="お腹を壊しました。"
+                    {...message}
                   />
                 </div>
               </form>
               <div class="space-x-2 flex justify-end">
                 <button
-                  class="bg-orange-400 text-white px-6 py-3 rounded-md focus:outline-none"
                   onClick={() => submit()}
+                  class="bg-orange-400 text-white px-6 py-3 rounded-md focus:outline-none"
                 >
                   Submit
                 </button>

@@ -8,12 +8,13 @@ import * as $2 from "./routes/api/categories/[id].ts";
 import * as $3 from "./routes/api/categories/index.ts";
 import * as $4 from "./routes/api/foods/[id].ts";
 import * as $5 from "./routes/api/foods/index.ts";
-import * as $6 from "./routes/categories.tsx";
-import * as $7 from "./routes/category/[id].tsx";
-import * as $8 from "./routes/food/[id].tsx";
-import * as $9 from "./routes/foods.tsx";
-import * as $10 from "./routes/index.tsx";
-import * as $11 from "./routes/search.tsx";
+import * as $6 from "./routes/api/review/index.ts";
+import * as $7 from "./routes/categories.tsx";
+import * as $8 from "./routes/category/[id].tsx";
+import * as $9 from "./routes/food/[id].tsx";
+import * as $10 from "./routes/foods.tsx";
+import * as $11 from "./routes/index.tsx";
+import * as $12 from "./routes/search.tsx";
 import * as $$0 from "./islands/CategoryInput.tsx";
 import * as $$1 from "./islands/CreateReview.tsx";
 import * as $$2 from "./islands/DeleteButton.tsx";
@@ -27,12 +28,13 @@ const manifest = {
     "./routes/api/categories/index.ts": $3,
     "./routes/api/foods/[id].ts": $4,
     "./routes/api/foods/index.ts": $5,
-    "./routes/categories.tsx": $6,
-    "./routes/category/[id].tsx": $7,
-    "./routes/food/[id].tsx": $8,
-    "./routes/foods.tsx": $9,
-    "./routes/index.tsx": $10,
-    "./routes/search.tsx": $11,
+    "./routes/api/review/index.ts": $6,
+    "./routes/categories.tsx": $7,
+    "./routes/category/[id].tsx": $8,
+    "./routes/food/[id].tsx": $9,
+    "./routes/foods.tsx": $10,
+    "./routes/index.tsx": $11,
+    "./routes/search.tsx": $12,
   },
   islands: {
     "./islands/CategoryInput.tsx": $$0,
