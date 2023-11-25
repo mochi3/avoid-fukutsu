@@ -1,6 +1,3 @@
-import { Handlers } from "$fresh/server.ts";
-import { useState } from "preact/hooks";
-
 import { Category } from "../shared/types.ts";
 import { Url } from "../shared/types.ts";
 import { useInput } from "../shared/custom.ts";

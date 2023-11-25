@@ -1,7 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.3.0/mod.ts";
 
-import { Category, Food, createFoodKey, createFoodCategoryKey, createCategoryKey } from "../../../shared/types.ts";
+import { Category, Food } from "../../../shared/types.ts";
+import { createFoodKey, createFoodCategoryKey, createCategoryKey } from "../../../shared/util.ts";
 import { createDataDouble, get } from "../../../shared/db.ts";
 
 export const handler: Handlers = {
@@ -15,7 +16,7 @@ export const handler: Handlers = {
 async function createFood(name: string, categoryId: number) {
   let res: Food | string = "";
   try {
-    const {value: category} = await get<Category>(createCategoryKey(categoryId));
+    const category = await get<Category>(createCategoryKey(categoryId));
     const id = ulid();
     res = await createDataDouble<Food>(
       { id, name, categoryId: category.id, categoryName: category.name },

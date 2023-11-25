@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 
 import { deleteData } from "../../../shared/db.ts";
-import { createCategoryKey } from "../../../shared/types.ts";
+import { createCategoryKey } from "../../../shared/util.ts";
 
 export const handler: Handlers = {
   async DELETE(_req, ctx) {

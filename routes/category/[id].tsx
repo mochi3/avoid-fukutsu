@@ -4,17 +4,18 @@ import { Header } from "../../components/Header.tsx";
 import { Card } from "../../components/Card.tsx";
 import {
   Category,
-  createCategoryKey,
   Food,
   KeyPrefix,
   Url,
 } from "../../shared/types.ts";
+import { createCategoryKey } from "../../shared/util.ts";
+
 import { get, getList } from "../../shared/db.ts";
 
 export const handler: Handlers<{ category: Category; foods: Food[] }> = {
   async GET(_req, ctx) {
     const categoryId = parseInt(ctx.params.id);
-    const { value: category } = await get<Category>(
+    const category = await get<Category>(
       createCategoryKey(categoryId),
     );
     const foods = await getList<Food>([KeyPrefix.FoodsByCategory, categoryId]);

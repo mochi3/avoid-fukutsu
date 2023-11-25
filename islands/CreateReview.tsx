@@ -8,16 +8,11 @@ import {
   Expired,
   expiredTypeList,
   Food,
+  PostReview,
+  Url,
 } from "../shared/types.ts";
 import { useFocus, useInput } from "../shared/custom.ts";
 import { ConditionIcon } from "../components/ConditionIcon.tsx";
-
-interface PostReview {
-  foodId: string,
-  expired: Expired,
-  conditionId: number,
-  message: string,
-}
 
 export default function CreateReview(props: { foods: Food[] }) {
   const { foods } = props;
@@ -25,7 +20,7 @@ export default function CreateReview(props: { foods: Food[] }) {
   const { value: foodFocusValue, ...foodFocus } = useFocus();
   const { set: setFood, ...foodInput } = useInput("");
   const [foodId, setFoodId] = useState("");
-  const [expired, setExpired] = useState({value: 0, type: 0} as Expired);
+  const [expired, setExpired] = useState({ value: 0, type: 0 } as Expired);
   const [conditionId, setConditionId] = useState(0);
   const [showConditionList, setShowConditionList] = useState(false);
   const { set, ...message } = useInput("");
@@ -44,17 +39,20 @@ export default function CreateReview(props: { foods: Food[] }) {
     e.stopPropagation();
   };
   const submit = async () => {
-    console.log(message.value);
-    // await fetch("", {
-    //   method: "POST",
-    // });
     const body: PostReview = {
       foodId,
       expired,
       conditionId,
-      message: message.value
-    }
+      message: message.value,
+    };
     console.log(JSON.stringify(body));
+    const res = await fetch(Url.ApiReviews, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
   };
   return (
     <>
@@ -143,7 +141,7 @@ export default function CreateReview(props: { foods: Food[] }) {
                     <div class="absolute top-0 bg-white border rounded-md">
                       {conditionList.map((condition) => (
                         <div
-                          class={`text-[${condition.color}] ${
+                          class={`${
                             conditionId === condition.id || showConditionList
                               ? "flex"
                               : "hidden"
@@ -151,7 +149,6 @@ export default function CreateReview(props: { foods: Food[] }) {
                           onClick={(e) => clickCondition(e, condition.id)}
                         >
                           <ConditionIcon condition={condition} />
-                          {condition.message}
                           {!showConditionList && (
                             <Down class="absolute right-0 text-grayellow-500 pr-2" />
                           )}

@@ -1,7 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 
 import { deleteDataDouble, get } from "../../../shared/db.ts";
-import { createFoodKey, createFoodCategoryKey, Food } from "../../../shared/types.ts";
+import { Food } from "../../../shared/types.ts";
+import { createFoodKey, createFoodCategoryKey } from "../../../shared/util.ts";
 
 export const handler: Handlers = {
   async DELETE(_req, ctx) {
@@ -18,6 +19,6 @@ export const handler: Handlers = {
 };
 
 export const deleteFoodById = async (foodId: string) => {
-  const {value: {categoryId}} = await get<Food>(createFoodKey(foodId));
+  const {categoryId} = await get<Food>(createFoodKey(foodId));
   return deleteDataDouble(createFoodKey(foodId), createFoodCategoryKey(categoryId, foodId));
 }

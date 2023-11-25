@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 
-import { Category, KeyPrefix, createCategoryKey } from "../../../shared/types.ts";
+import { Category, KeyPrefix } from "../../../shared/types.ts";
+import { createCategoryKey } from "../../../shared/util.ts";
 import { createData, getLast } from "../../../shared/db.ts";
 
 export const handler: Handlers = {

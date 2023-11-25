@@ -18,6 +18,19 @@ export interface Review {
   message: string;
 }
 
+export interface ListReview extends TableList {
+  id: string;
+  foodName: string;
+  message: string;
+}
+
+export interface PostReview {
+  foodId: string;
+  expired: Expired;
+  conditionId: number;
+  message: string;
+}
+
 export interface Expired {
   value: number;
   type: number;
@@ -27,31 +40,19 @@ export const enum KeyPrefix {
   Categories = "categories",
   Foods = "foods",
   FoodsByCategory = "foods_by_category",
+  Reviews = "reviews",
+  ReviewsByFood = "reviews_by_food",
 }
-
-export const createCategoryKey = (id: number) => [
-  KeyPrefix.Categories,
-  id,
-];
-
-export const createFoodKey = (id: string) => [
-  KeyPrefix.Foods,
-  id,
-];
-
-export const createFoodCategoryKey = (categoryId: number, foodId: string) => [
-  KeyPrefix.FoodsByCategory,
-  categoryId,
-  foodId,
-];
 
 export const enum Url {
   Category = "/category",
   Food = "/food",
   Categories = "/categories",
   Foods = "/foods",
+  Reviews = "/reviews",
   ApiCategories = "/api/categories",
   ApiFoods = "/api/foods",
+  ApiReviews = "/api/reviews",
 }
 
 export interface TableList {

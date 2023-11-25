@@ -2,14 +2,16 @@ import { DbKey } from "./types.ts";
 
 const kv = await Deno.openKv();
 
-export async function get<T>(key: DbKey) {
+export async function getEntry<T>(key: DbKey) {
   const res = await kv.get<T>(key);
-  if (!valueNotNull(res)) throw new Error(`${key} がありません。`)
+  if (!res.value) throw new Error(`${key} がありません。`)
   return res;
 }
 
-const valueNotNull = <T>(a: Deno.KvEntryMaybe<T>):a is (typeof a) & {value: T}  => {
-  return !!a.value;
+export async function get<T>(key: DbKey) {
+  const res = await kv.get<T>(key);
+  if (!res.value) throw new Error(`${key} がありません。`)
+  return res.value;
 }
 
 export function getList<T>(searchKey: DbKey) {
@@ -56,15 +58,14 @@ export async function createDataDouble<T>(
 }
 
 export async function deleteData<T>(key: DbKey) {
-  const getRes = await kv.get(key);
-  if (!getRes.value) return "該当データがありません";
+  const getRes = await getEntry<T>(key);
   const res = await kv.atomic().check(getRes).delete(key).commit();
   if (!res) throw new Error("データの削除に失敗しました。");
   return "データを削除しました。";
 }
 
 export async function deleteDataDouble<T>(key1: DbKey, key2: DbKey) {
-  const getRes = await get<T>(key1);
+  const getRes = await getEntry<T>(key1);
   const res = await kv.atomic()
     .check(getRes)
     .delete(key1)
