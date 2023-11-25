@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Search from "$icons/search.tsx"
 
 import { Header } from "../components/Header.tsx";
+import { Footer } from "../components/Footer.tsx";
 import { Card } from "../components/Card.tsx";
 import CreateReview from "../islands/CreateReview.tsx";
 import { Category, Food, KeyPrefix, Url } from "../shared/types.ts";
@@ -54,6 +55,7 @@ export default function Home({ data }: PageProps<{categories:Category[], foods: 
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }
