@@ -3,7 +3,7 @@ import IconGitHub from "$icons/brand-github.tsx";
 export function Footer() {
   return (
     <>
-      <div class=" items-center flex first-line:justify-end px-6 pt-12 pb-8 space-x-3 absolute bottom-0 w-screen">
+      <div class=" items-center flex justify-end px-6 pt-12 pb-8 space-x-3 absolute bottom-0 w-screen">
         <a href="https://fresh.deno.dev">
           <img
             width="197"

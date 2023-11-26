@@ -13,7 +13,10 @@ export const createFoodKey = (id?: string) => {
 };
 
 export const createFoodCategoryKey = (categoryId: number, foodId?: string) => {
-  const key: (number | KeyPrefix | string)[] = [KeyPrefix.FoodsByCategory, categoryId];
+  const key: (number | KeyPrefix | string)[] = [
+    KeyPrefix.FoodsByCategory,
+    categoryId,
+  ];
   if (foodId) key.push(foodId);
   return key;
 };

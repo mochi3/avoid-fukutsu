@@ -29,7 +29,7 @@ export default function FoodsPage(
   return (
     <>
       <Header />
-      <div class="max-w-screen-md mx-auto">
+      <div class="max-w-screen-md mx-auto pt-10">
         <Table
           keys={tableKeys}
           objs={listReviews}

@@ -23,7 +23,7 @@ export default function FoodPage(
   return (
     <>
       <Header />
-      <div class="max-w-screen-md mx-auto py-8">
+      <div class="max-w-screen-md mx-auto py-8 pt-20">
         <h1 class="text-2xl font-bold mb-5 text-grayellow-600">
           {food.name}
         </h1>
