@@ -1,6 +1,6 @@
 import { KeyPrefix } from "./types.ts";
 
-export const createCategoryKey = (id: number) => {
+export const createCategoryKey = (id?: number) => {
   const key: (number | KeyPrefix)[] = [KeyPrefix.Categories];
   if (id) key.push(id);
   return key;
@@ -13,8 +13,8 @@ export const createFoodKey = (id?: string) => {
 };
 
 export const createFoodCategoryKey = (categoryId: number, foodId?: string) => {
-  const key = [KeyPrefix.FoodsByCategory, categoryId];
-  if (foodId) key.push(categoryId);
+  const key: (number | KeyPrefix | string)[] = [KeyPrefix.FoodsByCategory, categoryId];
+  if (foodId) key.push(foodId);
   return key;
 };
 
