@@ -13,7 +13,7 @@ export interface Food extends TableList {
 export interface Review {
   id: string;
   food: Food;
-  conditionId: number;
+  condition: Condition;
   expired: Expired;
   message: string;
 }
@@ -31,9 +31,20 @@ export interface PostReview {
   message: string;
 }
 
+export interface Condition {
+  id: number;
+  message: string;
+  color: string;
+}
+
 export interface Expired {
   value: number;
-  type: number;
+  type: ExpiredType;
+}
+
+export interface ExpiredType {
+  id: number;
+  name: string;
 }
 
 export const enum KeyPrefix {
@@ -61,23 +72,12 @@ export interface TableList {
 
 export type DbKey = (string | number)[];
 
-export interface Condition {
-  id: number;
-  message: string;
-  color: string;
-}
-
 export const conditionList: Condition[] = [
   { id: 0, message: "美味しい", color: "green" },
   { id: 1, message: "食べれる", color: "yellowgreen" },
   { id: 2, message: "まずい", color: "orange" },
   { id: 3, message: "危険", color: "red" },
 ];
-
-export interface ExpiredType {
-  id: number;
-  name: string;
-}
 
 export const expiredTypeList: ExpiredType[] = [
   { id: 0, name: "日" },

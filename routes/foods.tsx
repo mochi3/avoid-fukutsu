@@ -17,7 +17,7 @@ export const handler: Handlers<{ categories: Category[]; foods: Food[] }> = {
 };
 
 export default function FoodsPage(
-  {data}: PageProps<{ categories: Category[]; foods: Food[] }>,
+  { data }: PageProps<{ categories: Category[]; foods: Food[] }>,
 ) {
   const tableKeys = ["id", "name", "categoryName"];
   const { categories, foods } = data;
@@ -25,7 +25,12 @@ export default function FoodsPage(
     <>
       <Header />
       <div class="max-w-screen-md mx-auto">
-        <Table keys={tableKeys} objs={foods} deleteUrl={Url.ApiFoods} deleteId="id" />
+        <Table
+          keys={tableKeys}
+          objs={foods}
+          deleteUrl={Url.ApiFoods}
+          deleteId="id"
+        />
         <FoodInput categories={categories} />
       </div>
     </>

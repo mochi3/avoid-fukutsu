@@ -4,11 +4,12 @@ import { useState } from "preact/hooks";
 import { createPortal, TargetedEvent } from "preact/compat";
 
 import {
+  Condition,
   conditionList,
   Expired,
   expiredTypeList,
   Food,
-  PostReview,
+  Review,
   Url,
 } from "../shared/types.ts";
 import { useFocus, useInput } from "../shared/custom.ts";
@@ -18,10 +19,12 @@ export default function CreateReview(props: { foods: Food[] }) {
   const { foods } = props;
   const [showModal, setShowModal] = useState(false);
   const { value: foodFocusValue, ...foodFocus } = useFocus();
-  const { set: setFood, ...foodInput } = useInput("");
-  const [foodId, setFoodId] = useState("");
-  const [expired, setExpired] = useState({ value: 0, type: 0 } as Expired);
-  const [conditionId, setConditionId] = useState(0);
+  const { set: setFoodInput, ...foodInput } = useInput("");
+  const [food, setFood] = useState({} as Food);
+  const [expired, setExpired] = useState(
+    { value: 0, type: expiredTypeList[0] } as Expired,
+  );
+  const [condition, setCondition] = useState(conditionList[0]);
   const [showConditionList, setShowConditionList] = useState(false);
   const { set, ...message } = useInput("");
 
@@ -30,19 +33,20 @@ export default function CreateReview(props: { foods: Food[] }) {
     e.stopPropagation();
   };
   const selectFood = (food: Food) => {
-    setFood(food.name);
-    setFoodId(food.id);
+    setFoodInput(food.name);
+    setFood(food);
   };
-  const clickCondition = (e: Event, id: number) => {
-    setConditionId(id);
+  const clickCondition = (e: Event, condition: Condition) => {
+    setCondition(condition);
     setShowConditionList(!showConditionList);
     e.stopPropagation();
   };
   const submit = async () => {
-    const body: PostReview = {
-      foodId,
+    const body: Review = {
+      id: "",
+      food,
       expired,
-      conditionId,
+      condition,
       message: message.value,
     };
     console.log(JSON.stringify(body));
@@ -124,7 +128,9 @@ export default function CreateReview(props: { foods: Food[] }) {
                       onChange={(e) =>
                         setExpired({
                           ...expired,
-                          type: parseInt((e.target as HTMLSelectElement).value),
+                          type: expiredTypeList[
+                            parseInt((e.target as HTMLSelectElement).value)
+                          ],
                         })}
                     >
                       {expiredTypeList.map((expiredType) => (
@@ -139,16 +145,16 @@ export default function CreateReview(props: { foods: Food[] }) {
                   <label>Condition</label>
                   <div class="relative h-[37px]">
                     <div class="absolute top-0 bg-white border rounded-md">
-                      {conditionList.map((condition) => (
+                      {conditionList.map((list) => (
                         <div
                           class={`${
-                            conditionId === condition.id || showConditionList
+                            condition.id === list.id || showConditionList
                               ? "flex"
                               : "hidden"
                           } cursor-pointer items-center pl-2 h-[35px] w-[300px]`}
-                          onClick={(e) => clickCondition(e, condition.id)}
+                          onClick={(e) => clickCondition(e, list)}
                         >
-                          <ConditionIcon condition={condition} />
+                          <ConditionIcon condition={list} />
                           {!showConditionList && (
                             <Down class="absolute right-0 text-grayellow-500 pr-2" />
                           )}

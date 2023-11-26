@@ -2,7 +2,11 @@ import { Handlers } from "$fresh/server.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.3.0/mod.ts";
 
 import { Category, Food } from "../../../shared/types.ts";
-import { createFoodKey, createFoodCategoryKey, createCategoryKey } from "../../../shared/util.ts";
+import {
+  createCategoryKey,
+  createFoodCategoryKey,
+  createFoodKey,
+} from "../../../shared/util.ts";
 import { createDataDouble, get } from "../../../shared/db.ts";
 
 export const handler: Handlers = {

@@ -1,9 +1,9 @@
 import { Handlers } from "$fresh/server.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.3.0/mod.ts";
 
-import { Food, Review, PostReview } from "../../../shared/types.ts";
-import { createFoodKey, createReviewKey, createReviewFoodKey } from "../../../shared/util.ts";
-import { createDataDouble, get } from "../../../shared/db.ts";
+import { Review } from "../../../shared/types.ts";
+import { createReviewFoodKey, createReviewKey } from "../../../shared/util.ts";
+import { createDataDouble } from "../../../shared/db.ts";
 
 export const handler: Handlers = {
   async POST(req) {
@@ -13,19 +13,17 @@ export const handler: Handlers = {
   },
 };
 
-async function createReview(data: PostReview) {
+async function createReview(data: Review) {
   let res: Review | string = "";
   try {
-    const food = await get<Food>(createFoodKey(data.foodId));
     const id = ulid();
     res = await createDataDouble<Review>(
-      { id, food, ...data },
+      { ...data, id },
       createReviewKey(id),
-      createReviewFoodKey(food.id, id),
+      createReviewFoodKey(data.food.id, id),
     );
   } catch (e) {
     console.error(e);
   }
   return res;
 }
-

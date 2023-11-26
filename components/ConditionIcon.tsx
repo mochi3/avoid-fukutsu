@@ -7,15 +7,15 @@ import { createElement } from "preact";
 import { Condition } from "../shared/types.ts";
 
 export function ConditionIcon(
-  props: { condition: Condition },
+  props: { condition: Condition; style?: string },
 ) {
-  const { condition: { id, color, message } } = props;
-  const componentList = [ Great, Good, Bad, Terrible ];
+  const { condition: { id, color, message }, style } = props;
+  const componentList = [Great, Good, Bad, Terrible];
   const Component = componentList[id];
   return (
-    <div class={`flex text-[${color}]`}>
+    <div class={`flex space-x-1 items-center text-[${color}] ${style}`}>
       <Component color={color} />
-      {message}
+      <span>{message}</span>
     </div>
   );
 }

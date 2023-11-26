@@ -4,13 +4,13 @@ const kv = await Deno.openKv();
 
 export async function getEntry<T>(key: DbKey) {
   const res = await kv.get<T>(key);
-  if (!res.value) throw new Error(`${key} がありません。`)
+  if (!res.value) throw new Error(`${key} がありません。`);
   return res;
 }
 
 export async function get<T>(key: DbKey) {
   const res = await kv.get<T>(key);
-  if (!res.value) throw new Error(`${key} がありません。`)
+  if (!res.value) throw new Error(`${key} がありません。`);
   return res.value;
 }
 
@@ -23,7 +23,7 @@ export function getList<T>(searchKey: DbKey) {
 export async function getLast<T>(prefix: string) {
   const res = await KvIterToArray(
     kv.list<T>({ prefix: [prefix] }, { limit: 1, reverse: true }),
-  )
+  );
   return res[0];
 }
 
@@ -72,5 +72,5 @@ export async function deleteDataDouble<T>(key1: DbKey, key2: DbKey) {
     .delete(key2)
     .commit();
   if (!res) throw new Error("データの削除に失敗しました。");
-  return "データを削除しました。";  
+  return "データを削除しました。";
 }

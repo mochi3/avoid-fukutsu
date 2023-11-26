@@ -2,12 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 
 import { Header } from "../../components/Header.tsx";
 import { Card } from "../../components/Card.tsx";
-import {
-  Category,
-  Food,
-  KeyPrefix,
-  Url,
-} from "../../shared/types.ts";
+import { Category, Food, KeyPrefix, Url } from "../../shared/types.ts";
 import { createCategoryKey } from "../../shared/util.ts";
 
 import { get, getList } from "../../shared/db.ts";
@@ -31,7 +26,7 @@ export default function CategoryPage(
     <>
       <Header />
       <div class="max-w-screen-md mx-auto py-8">
-        <h1 class="text-2xl font-bold mb-5 text-grayellow-700">
+        <h1 class="text-2xl font-bold mb-5 text-grayellow-600">
           {category.name}
         </h1>
         <div class="grid grid-cols-3 gap-5 lg:!grid-cols-4 lg:!gap-5">

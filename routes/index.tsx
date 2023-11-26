@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import Search from "$icons/search.tsx"
+import Search from "$icons/search.tsx";
 
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
@@ -8,16 +8,18 @@ import CreateReview from "../islands/CreateReview.tsx";
 import { Category, Food, KeyPrefix, Url } from "../shared/types.ts";
 import { getList } from "../shared/db.ts";
 
-export const handler: Handlers<{categories:Category[], foods: Food[]}> = {
+export const handler: Handlers<{ categories: Category[]; foods: Food[] }> = {
   async GET(req, ctx) {
     const categories = await getList<Category>([KeyPrefix.Categories]);
     const foods = await getList<Food>([KeyPrefix.Foods]);
-    return ctx.render({categories, foods});
+    return ctx.render({ categories, foods });
   },
 };
 
-export default function Home({ data }: PageProps<{categories:Category[], foods: Food[]}>) {
-  const { categories, foods} = data;
+export default function Home(
+  { data }: PageProps<{ categories: Category[]; foods: Food[] }>,
+) {
+  const { categories, foods } = data;
   return (
     <>
       <Header />

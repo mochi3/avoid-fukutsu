@@ -20,7 +20,12 @@ export default function CategoriesPage({ data = [] }: PageProps<Category[]>) {
     <>
       <Header />
       <div class="max-w-screen-md mx-auto">
-        <Table keys={tableKeys} objs={data} deleteUrl={Url.ApiCategories} deleteId="id" />
+        <Table
+          keys={tableKeys}
+          objs={data}
+          deleteUrl={Url.ApiCategories}
+          deleteId="id"
+        />
         <CategoryInput />
       </div>
     </>

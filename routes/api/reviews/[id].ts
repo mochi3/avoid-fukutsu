@@ -2,7 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 
 import { deleteDataDouble, get } from "../../../shared/db.ts";
 import { Review } from "../../../shared/types.ts";
-import { createReviewKey, createReviewFoodKey } from "../../../shared/util.ts";
+import { createReviewFoodKey, createReviewKey } from "../../../shared/util.ts";
 
 export const handler: Handlers = {
   async DELETE(_req, ctx) {
@@ -14,11 +14,14 @@ export const handler: Handlers = {
     } catch (e) {
       console.error(e);
     }
-    return new Response(message)
+    return new Response(message);
   },
 };
 
 export const deleteReviewById = async (reviewId: string) => {
-  const {food: {id: foodId}} = await get<Review>(createReviewKey(reviewId));
-  return deleteDataDouble(createReviewKey(reviewId), createReviewFoodKey(foodId, reviewId));
-}
+  const { food: { id: foodId } } = await get<Review>(createReviewKey(reviewId));
+  return deleteDataDouble(
+    createReviewKey(reviewId),
+    createReviewFoodKey(foodId, reviewId),
+  );
+};
